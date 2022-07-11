@@ -1,4 +1,7 @@
 import { Component } from 'react';
+import { FilterInput } from 'components/Filter/Filter.styled';
+import { Button } from 'components/ContactList/ContactList.styled';
+import { Form, FormInput } from './ContactForm.styled';
 
 export class ContactForm extends Component {
   state = {
@@ -29,10 +32,10 @@ export class ContactForm extends Component {
 
   render() {
     return (
-      <form onSubmit={this.hendelSubmit}>
-        <label htmlFor="">
+      <Form onSubmit={this.hendelSubmit}>
+        <FormInput>
           <span>Name</span>
-          <input
+          <FilterInput
             type="text"
             name="name"
             pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
@@ -41,10 +44,10 @@ export class ContactForm extends Component {
             value={this.state.name}
             onChange={this.hendelSaveContact}
           />
-        </label>
-        <label>
+        </FormInput>
+        <FormInput>
           <span>Number</span>
-          <input
+          <FilterInput
             type="tel"
             name="number"
             pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
@@ -53,9 +56,9 @@ export class ContactForm extends Component {
             value={this.state.number}
             onChange={this.hendelSaveContact}
           />
-        </label>
-        <button type="submit">Add contact</button>
-      </form>
+        </FormInput>
+        <Button type="submit">Add contact</Button>
+      </Form>
     );
   }
 }

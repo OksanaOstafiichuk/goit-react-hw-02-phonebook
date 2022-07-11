@@ -4,6 +4,7 @@ import shortid from 'shortid';
 import { ContactList } from './ContactList/ContactList';
 import { ContactForm } from './ContactForm/ContactForm';
 import { Filter } from './Filter/Filter';
+import { PhoneBook, Title, Contacts } from './App.styled';
 
 export class App extends Component {
   state = {
@@ -16,19 +17,19 @@ export class App extends Component {
     filter: '',
   };
 
-  addContact = data => {
+  addContact = ({ name, number }) => {
     const contact = {
       id: shortid.generate(),
-      name: data.name,
-      number: data.number,
+      name: name,
+      number: number,
     };
 
     const findName = this.state.contacts.find(
-      contact => contact.name.toLowerCase() === data.name.toLowerCase()
+      contact => contact.name.toLowerCase() === name.toLowerCase()
     );
 
     if (findName) {
-      alert(`${data.name} is already in contacts.`);
+      alert(`${name} is already in contacts.`);
       return;
     } else {
       this.setState(prevState => ({
@@ -48,23 +49,25 @@ export class App extends Component {
   };
 
   addFilter = () => {
-    return this.state.contacts.filter(contact =>
-      contact.name.toLowerCase().includes(this.state.filter.toLowerCase())
+    const { contacts, filter } = this.state;
+    return contacts.filter(contact =>
+      contact.name.toLowerCase().includes(filter.toLowerCase())
     );
   };
 
   render() {
+    const { filter } = this.state;
     const renderFilter = this.addFilter();
 
     return (
-      <div>
-        <h1>Phonebook</h1>
+      <PhoneBook>
+        <Title>Phonebook</Title>
         <ContactForm onSubmit={this.addContact} />
 
-        <h2>Contacts</h2>
-        <Filter value={this.state.filter} onChange={this.filterContacts} />
+        <Contacts>Contacts</Contacts>
+        <Filter value={filter} onChange={this.filterContacts} />
         <ContactList contacts={renderFilter} onDelete={this.deleteContact} />
-      </div>
+      </PhoneBook>
     );
   }
 }

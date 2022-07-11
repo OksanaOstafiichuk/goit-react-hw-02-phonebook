@@ -1,17 +1,19 @@
 import PropTypes from 'prop-types';
+import { ImUserCheck } from 'react-icons/im';
+import { List, Item, Button } from './ContactList.styled';
 
 export const ContactList = ({ contacts, onDelete }) => {
   return (
-    <ul>
+    <List>
       {contacts.map(({ name, number, id }) => (
-        <li key={id}>
-          {name}: {number}
-          <button type="button" onClick={() => onDelete(id)}>
+        <Item key={id}>
+          <ImUserCheck color="385898" /> - {name}: {number}
+          <Button type="button" onClick={() => onDelete(id)}>
             Delete
-          </button>
-        </li>
+          </Button>
+        </Item>
       ))}
-    </ul>
+    </List>
   );
 };
 
