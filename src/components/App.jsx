@@ -18,13 +18,15 @@ export class App extends Component {
   };
 
   addContact = ({ name, number }) => {
+    const { contacts } = this.state;
+
     const contact = {
       id: shortid.generate(),
-      name: name,
-      number: number,
+      name,
+      number,
     };
 
-    const findName = this.state.contacts.find(
+    const findName = contacts.find(
       contact => contact.name.toLowerCase() === name.toLowerCase()
     );
 
